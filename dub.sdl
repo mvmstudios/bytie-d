@@ -1,0 +1,5 @@
+name "bytie-d"
+description "A basic 3D Game Engine written in D"
+authors "Maurice Schmidt"
+copyright "Copyright © 2019, Maurice Schmidt"
+license "GPL"
