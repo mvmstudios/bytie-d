@@ -3,3 +3,6 @@ description "A basic 3D Game Engine written in D"
 authors "Maurice Schmidt"
 copyright "Copyright © 2019, Maurice Schmidt"
 license "GPL"
+
+dependency "bindbc-sdl" version="~>0.6.1"
+dependency "bindbc-opengl" version="~>0.7.0"
