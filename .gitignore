@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/bytie-d
+bytie-d.so
+bytie-d.dylib
+bytie-d.dll
+bytie-d.a
+bytie-d.lib
+bytie-d-test-*
+*.exe
+*.o
+*.obj
+*.lst
+
