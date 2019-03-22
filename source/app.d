@@ -5,6 +5,16 @@ import bindbc.opengl;
 
 import bytied.types.vertex;
 import bytied.buffer.vertexbuffer;
+import bytied.buffer.indexbuffer;
+
+//void function(GLenum,GLenum,GLuint,GLenum,GLsizei,const(GLchar)*,GLvoid*)
+extern (C) void dglDebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParams) {
+	import std.string : fromStringz;
+	writefln("OpenGL Debug: %s", message.fromStringz);
+}
+
+//uint, uint, uint, uint, int, const(char)*, void*) nothrow, const(void)*
+// uint source, uint type, uint pointer, uint serverity, int length, const(char*) message, const(void*) paramenters)
 
 /*
 @TODO: Error handling 
@@ -26,17 +36,24 @@ void main() {
 		writefln("Error loading OpenGL %s", ret);
 	}
 
-	Vertex[] vertices = [
-        { -0.5, -0.5, 0.0,
-        1.0, 0.0, 0.0, 1.0 },
-        { 0.0, 0.5, 0.0,
-        0.0, 1.0, 0.0, 1.0 },
-        { 0.5, -0.5, 0.0,
-        0.0, 0.0, 1.0, 1.0 }
-	];
-    int verticesSize = 3;
+	glEnable(GL_DEBUG_OUTPUT);
+    glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+    glDebugMessageCallback(cast(GLDEBUGPROC) &dglDebugMessageCallback, null);
 
-	VertexBuffer vertexBuffer = new VertexBuffer(cast(void*) vertices, verticesSize);
+	Vertex[] vertices = [
+        Vertex(-0.5, -0.5, 0.0,
+        1.0, 0.0, 0.0, 1.0),
+        Vertex( 0.0, 0.5, 0.0,
+        0.0, 1.0, 0.0, 1.0 ),
+        Vertex( 0.5, -0.5, 0.0,
+        0.0, 0.0, 1.0, 1.0 )
+	];
+
+	GLuint[] indices = [ 0, 1, 2 ]; 
+	
+	IndexBuffer indexBuffer = new IndexBuffer(cast(void*) indices, cast(int) indices.length, uint.sizeof);
+
+	VertexBuffer vertexBuffer = new VertexBuffer(cast(void*) vertices, cast(int) vertices.length);
 
 	bool closeRequested = false;
 	while (!closeRequested) {
@@ -54,10 +71,14 @@ void main() {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		vertexBuffer.bind();
+		indexBuffer.bind();
 
-		glDrawArrays(GL_TRIANGLES, 0, verticesSize);
+		//GLenum,GLsizei,GLenum,const(GLvoid)*
+		// ERROR
+		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, null);
 
 		vertexBuffer.unbind();
+		indexBuffer.unbind();
 
 		SDL_GL_SwapWindow(window);
 
