@@ -28,12 +28,8 @@ void main() {
 	SDL_GL_CreateContext(window);
 
 	GLSupport ret = loadOpenGL();
-	if (ret == GLSupport.gl41) {
-		writeln("OpenGL 4.1 ready");
-	} else if (ret == GLSupport.gl33) {
-		writeln("OpenGL 3.3 ready");
-	} else {
-		writefln("Error loading OpenGL %s", ret);
+	if (ret == GLSupport.noLibrary) {
+		writeln("Error loading OpenGL no library!");
 	}
 
 	glEnable(GL_DEBUG_OUTPUT);
