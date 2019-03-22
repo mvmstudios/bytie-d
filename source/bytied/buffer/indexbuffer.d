@@ -8,7 +8,7 @@ class IndexBuffer : GlBuffer {
         GLuint _bufferPointer;
 
     public:
-        this(void* data, int indicesSize, ubyte elementSize) {
+        this(void* data, int indicesSize, int elementSize) {
             glGenBuffers(1, &_bufferPointer);
             glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _bufferPointer);
 
