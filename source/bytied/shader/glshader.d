@@ -85,4 +85,8 @@ class GlShader {
         void unbind() {
             glUseProgram(0);
         }
+
+        GLuint programPointer() {
+            return _programPointer;
+        }
 }
