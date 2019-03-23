@@ -6,4 +6,5 @@ license "GPL"
 
 dependency "bindbc-sdl" version="~>0.6.1"
 dependency "bindbc-opengl" version="~>0.7.0"
+dependency "gl3n" version="~>1.3.1"
 versions "GL_44"
