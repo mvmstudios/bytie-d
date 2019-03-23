@@ -6,6 +6,7 @@ import bindbc.opengl;
 import bytied.types.vertex;
 import bytied.buffer.vertexbuffer;
 import bytied.buffer.indexbuffer;
+import bytied.shader.glshader;
 
 //void function(GLenum,GLenum,GLuint,GLenum,GLsizei,const(GLchar)*,GLvoid*)
 extern (C) void dglDebugMessageCallback(GLenum source, GLenum type, GLuint id, GLenum severity, GLsizei length, const GLchar* message, const void* userParams) {
@@ -48,8 +49,9 @@ void main() {
 	GLuint[] indices = [ 0, 1, 2 ]; 
 	
 	IndexBuffer indexBuffer = new IndexBuffer(cast(void*) indices, cast(int) indices.length, uint.sizeof);
-
 	VertexBuffer vertexBuffer = new VertexBuffer(cast(void*) vertices, cast(int) vertices.length);
+	GlShader shader = new GlShader("shader/test.vert", "shader/test.frag");
+	shader.bind();
 
 	bool closeRequested = false;
 	while (!closeRequested) {
